@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p id="ready">Opencv Loading...</p>
+    <button id="runDemo" style="display: block">Run Demo</button>  
+    <div>
+        <video id="videoInput" width="320" height="240"></video>
+        <canvas id="arucoCanvasOutput" width="320" height="240"></canvas>
+        <canvas id="webgl-draw" width="320" height="240"></canvas>
+    </div>
+</body>
+<script src="util.js"></script>
+<script async src="opencv.js" onload="opencvReady()"></script>
+<script src="test/gl-matrix.js"></script>
+<script>
+    // Setup WebGL
+    //var canvas = document.getElementById('arucoCanvasOutput');
+    //initDemo();
+    let markerId, markerCorner, rvec, tvec, copyCorners;
+
+    function opencvReady() {
+        document.getElementById('ready').innerText = 'OpenCV is ready';
+    }
+
+    let video = document.getElementById('videoInput');
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                    video.play();
+                    main();
+                })
+                .catch(function(err) {
+                    console.log("An error occurred! " + err);
+                });
+
+    loadTextResource('utils.js', function (err, obj) {
+        if (err) {
+            console.error(err);
+        } else {
+            var script = document.createElement('script');
+            script.append(obj);
+            document.body.appendChild(script);
+
+            loadTextResource('test/aruco-video.js', function (err, obj) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    var script = document.createElement('script');
+                    script.append(obj);
+                    document.body.appendChild(script);
+                    loadTextResource('test/webgl-video-cube.js', function (err, obj) {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            var script = document.createElement('script');
+                            script.append(obj);
+                            document.body.appendChild(script);
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    let button = document.getElementById('runDemo');
+    button.onclick = function() {
+        runDemo();
+    }
+
+
+</script>
+</html>
