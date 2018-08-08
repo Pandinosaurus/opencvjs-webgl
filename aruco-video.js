@@ -50,9 +50,7 @@ var runDemo = function() {
                 markerCorner = markerCorners.get(0).data32F;
                 tvec = tvecs.data64F[2]; // z distance 
                 // Normalize z rotation i.e. rvec
-                if (rvecs.data64F[0] > -1.0 && rvecs.data64F[0] < 0.0)
-                    rvec = -2.0;
-                else if (rvecs.data64F[0] > 0.0 && rvecs.data64F[0] < 2.0)
+                if ((rvecs.data64F[0] > -1.5 && rvecs.data64F[0] < 0.0) || (rvecs.data64F[0] < 2.0 && rvecs.data64F[0] > 0.0))
                     rvec = 2.0;
                 else
                     rvec = rvecs.data64F[0];
@@ -61,6 +59,7 @@ var runDemo = function() {
                 markerId = 0;
                 markerCorner = [0, 0, 0, 0, 0, 0, 0, 0];
                 tvec = 1;
+                rvec = 1;
             }
             
             cv.imshow('arucoCanvasOutput', dst);
