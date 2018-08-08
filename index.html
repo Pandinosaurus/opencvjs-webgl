@@ -17,7 +17,7 @@
 </body>
 <script src="util.js"></script>
 <script async src="opencv.js" onload="opencvReady()"></script>
-<script src="test/gl-matrix.js"></script>
+<script src="gl-matrix.js"></script>
 <script>
     // Setup WebGL
     //var canvas = document.getElementById('arucoCanvasOutput');
@@ -48,14 +48,14 @@
             script.append(obj);
             document.body.appendChild(script);
 
-            loadTextResource('test/aruco-video.js', function (err, obj) {
+            loadTextResource('aruco-video.js', function (err, obj) {
                 if (err) {
                     console.error(err);
                 } else {
                     var script = document.createElement('script');
                     script.append(obj);
                     document.body.appendChild(script);
-                    loadTextResource('test/webgl-video-cube.js', function (err, obj) {
+                    loadTextResource('webgl-video-cube.js', function (err, obj) {
                         if (err) {
                             console.error(err);
                         } else {

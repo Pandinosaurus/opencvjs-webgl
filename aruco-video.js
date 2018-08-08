@@ -36,6 +36,7 @@ var runDemo = function() {
                     rvec.delete();
                     tvec.delete();
                 }
+                // starts top left, then goes clockwise
                 for (let j = 0; j < markerCorners.get(0).data32F.length; j+=2) {
                     cv.circle(
                         dst, 
