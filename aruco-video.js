@@ -32,7 +32,6 @@ var runDemo = function() {
                 for(let i=0; i < markerIds.rows; ++i) {
                     let rvec = cv.matFromArray(3, 1, cv.CV_64F, [rvecs.doublePtr(0, i)[0], rvecs.doublePtr(0, i)[1], rvecs.doublePtr(0, i)[2]]);
                     let tvec = cv.matFromArray(3, 1, cv.CV_64F, [tvecs.doublePtr(0, i)[0], tvecs.doublePtr(0, i)[1], tvecs.doublePtr(0, i)[2]]);
-                    rvecY = rvecs.data64F[1];
                     cv.drawAxis(dst, cameraMatrix, distCoeffs, rvec, tvec, 0.1);
                     rvec.delete();
                     tvec.delete();
