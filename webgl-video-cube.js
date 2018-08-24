@@ -234,6 +234,7 @@ function initBuffers(gl, markerCorner = [0, 0, 0, 0, 0, 0, 0, 0], rvec = 1, tvec
 
   gl.bindBuffer(gl.ARRAY_BUFFER, squareBuffer);
 
+
   // Create an array of positions for the triangle
   
   // Starts top left, then goes clockwise.
@@ -247,34 +248,34 @@ function initBuffers(gl, markerCorner = [0, 0, 0, 0, 0, 0, 0, 0], rvec = 1, tvec
     markerCorner[4], markerCorner[5],  -1.0,                              1.0, 0.0, 0.0,  
 
     // Back face
-    markerCorner[0], markerCorner[1],  1.0,                              0.0, 1.0, 0.0,
-    markerCorner[0], markerCorner[1] - ( 120 / tvec / rvec ),  1.0,      0.0, 1.0, 0.0,
-    markerCorner[2], markerCorner[3] - ( 120 / tvec / rvec ),  1.0,      0.0, 1.0, 0.0,
-    markerCorner[2], markerCorner[3],  1.0,                              0.0, 1.0, 0.0,
+    markerCorner[0], markerCorner[1],  -1.0,                              1.0, 0.0, .0,
+    markerCorner[0], markerCorner[1] - ( 120 / tvec / rvec ),  -1.0,      1.0, 0.0, .0,
+    markerCorner[2], markerCorner[3] - ( 120 / tvec / rvec ),  -1.0,      1.0, 0.0, .0,
+    markerCorner[2], markerCorner[3],  -1.0,                              1.0, 0.0, .0,
 
     // Top face
-    markerCorner[0], markerCorner[1] - ( 120 / tvec / rvec ),  -1.0,      0.0, 0.0, 1.0,
-    markerCorner[2], markerCorner[3] - ( 120 / tvec / rvec ),  -1.0,      0.0, 0.0, 1.0,
-    markerCorner[4], markerCorner[5] - ( 120 / tvec / rvec ),  -1.0,      0.0, 0.0, 1.0,
-    markerCorner[6], markerCorner[7] - ( 120 / tvec / rvec ),  -1.0,      0.0, 0.0, 1.0,
+    markerCorner[0], markerCorner[1] - ( 120 / tvec / rvec ),  -1.0,      1.0, 0.0, .0,
+    markerCorner[2], markerCorner[3] - ( 120 / tvec / rvec ),  -1.0,      1.0, 0.0, .0,
+    markerCorner[4], markerCorner[5] - ( 120 / tvec / rvec ),  -1.0,      1.0, 0.0, .0,
+    markerCorner[6], markerCorner[7] - ( 120 / tvec / rvec ),  -1.0,      1.0, 0.0, .0,
 
      // Bottom face
-     markerCorner[0], markerCorner[1],  1.0,                             1.0, 1.0, 0.0,
-     markerCorner[2], markerCorner[3],  1.0,                             1.0, 1.0, 0.0,
-     markerCorner[4], markerCorner[5],  1.0,                             1.0, 1.0, 0.0,
-     markerCorner[6], markerCorner[7],  1.0,                             1.0, 1.0, 0.0,
+     markerCorner[0], markerCorner[1],  1.0,                              1.0, 0.0, .0,
+     markerCorner[2], markerCorner[3],  1.0,                              1.0, 0.0, .0,
+     markerCorner[4], markerCorner[5],  1.0,                              1.0, 0.0, .0,
+     markerCorner[6], markerCorner[7],  1.0,                              1.0, 0.0, .0,
 
      // Right face
-     markerCorner[0], markerCorner[1], 1.0,                              0.0, 1.0, 1.0,
-     markerCorner[0], markerCorner[1] - ( 120 / tvec / rvec ), 1.0,      0.0, 1.0, 1.0,
-     markerCorner[6], markerCorner[7] - ( 120 / tvec / rvec ),  1.0,     0.0, 1.0, 1.0,
-     markerCorner[6], markerCorner[7],  1.0,                             0.0, 1.0, 1.0,
+     markerCorner[0], markerCorner[1], -1.0,                              1.0, 0.0, .0,
+     markerCorner[0], markerCorner[1] - ( 120 / tvec / rvec ), -1.0,      1.0, 0.0, .0,
+     markerCorner[6], markerCorner[7] - ( 120 / tvec / rvec ),  -1.0,     1.0, 0.0, .0,
+     markerCorner[6], markerCorner[7],  -1.0,                             1.0, 0.0, .0,
 
     // Left face
-    markerCorner[2], markerCorner[3], 1.0,                               1.0, 0.0, 1.0,
-    markerCorner[2], markerCorner[3] - ( 120 / tvec / rvec ),  1.0,      1.0, 0.0, 1.0,
-    markerCorner[4], markerCorner[5] - ( 120 / tvec / rvec ),  1.0,      1.0, 0.0, 1.0,
-    markerCorner[4], markerCorner[5], 1.0,                               1.0, 0.0, 1.0
+    markerCorner[2], markerCorner[3], -1.0,                               1.0, 0.0, .0,
+    markerCorner[2], markerCorner[3] - ( 120 / tvec / rvec ),  -1.0,      1.0, 0.0, .0,
+    markerCorner[4], markerCorner[5] - ( 120 / tvec / rvec ),  -1.0,      1.0, 0.0, .0,
+    markerCorner[4], markerCorner[5], -1.0,                               1.0, 0.0, .0
 
   ];
 
