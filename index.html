@@ -40,7 +40,7 @@
 
     let video = document.getElementById('videoInput');
 
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } }, video : { facingMode: "user" }, audio: false })
         .then(function (stream) {
             video.srcObject = stream;
             video.play();
