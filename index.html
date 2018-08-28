@@ -30,6 +30,7 @@
 <script src="util.js"></script>
 <script async src="opencv.js"></script>
 <script src="gl-matrix.js"></script>
+<script src="webgl-video-cube.js"></script>
 <script>
     let markerId, markerCorner, rvec, tvec, copyCorners;
 
@@ -64,15 +65,6 @@
                     var script = document.createElement('script');
                     script.append(obj);
                     document.body.appendChild(script);
-                    loadTextResource('webgl-video-cube.js', function (err, obj) {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            var script = document.createElement('script');
-                            script.append(obj);
-                            document.body.appendChild(script);
-                        }
-                    });
                 }
             });
         }
@@ -83,10 +75,13 @@
         runDemo();
     }
 
-    setTimeout(() => {
-        button.disabled = false;
-        opencvReady();
-    }, 2500);
+    const checkOpencv =  setInterval(() => {
+        if (cv.usingWasm) {
+            button.disabled = false;
+            opencvReady();
+            clearInterval(checkOpencv);
+        }
+    }, 500);
 </script>
 
 </html>
