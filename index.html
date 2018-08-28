@@ -76,9 +76,11 @@
     }
 
     setInterval(() => {
-        if (cv !== 'undefined')
-        button.disabled = false;
-        opencvReady();
+        if (cv.usingWasm) {
+            console.log(new cv.Mat());
+            button.disabled = false;
+            opencvReady();
+        }
     }, 500);
 </script>
 
