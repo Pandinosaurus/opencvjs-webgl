@@ -75,9 +75,8 @@
         runDemo();
     }
 
-    const checkOpencv = setInterval(() => {
+    const checkOpencv =  setInterval(() => {
         if (cv.usingWasm) {
-            console.log('interval');
             button.disabled = false;
             opencvReady();
             clearInterval(checkOpencv);
