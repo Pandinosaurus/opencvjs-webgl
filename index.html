@@ -28,7 +28,7 @@
     </div>
 </body>
 <script src="util.js"></script>
-<script async src="opencv.js"   ></script>
+<script async src="opencv.js"></script>
 <script src="gl-matrix.js"></script>
 <script src="webgl-video-cube.js"></script>
 <script>
@@ -75,10 +75,12 @@
         runDemo();
     }
 
-    setInterval(() => {
+    const checkOpencv = setInterval(() => {
         if (cv.usingWasm) {
+            console.log('interval');
             button.disabled = false;
             opencvReady();
+            clearInterval(checkOpencv);
         }
     }, 500);
 </script>
