@@ -75,10 +75,11 @@
         runDemo();
     }
 
-    setTimeout(() => {
+    setInterval(() => {
+        if (cv !== 'undefined')
         button.disabled = false;
         opencvReady();
-    }, 3000);
+    }, 500);
 </script>
 
 </html>
