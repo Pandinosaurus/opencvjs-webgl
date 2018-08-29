@@ -10,6 +10,8 @@
 
 <body>
     <p id="ready">Opencv Loading...</p>
+    <button id="front-button">Front Camera</button>
+    <button id="back-button">Back Camera</button>
     <button id="runDemo" style="display: block" disabled>Run Demo</button>
     <div>
         <div style="display: inline-block; text-align: center">
@@ -32,15 +34,16 @@
 <script src="gl-matrix.js"></script>
 <script src="webgl-video-cube.js"></script>
 <script>
-    let markerId, markerCorner, rvec, tvec, copyCorners;
-
-    function opencvReady() {
-        document.getElementById('ready').innerText = 'OpenCV is ready';
-    }
-
+    var front = false;
+    var constraints = { video: { facingMode: (front? "user" : "environment") }, audio: false };
     let video = document.getElementById('videoInput');
+    let frontButton = document.getElementById('front-button');
+    let backButton = document.getElementById('back-button');
+    frontButton.onclick = function() {
+        front = !front;
 
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } }, video : { facingMode: "user" }, audio: false })
+        console.log('test')
+        navigator.mediaDevices.getUserMedia(constraints)
         .then(function (stream) {
             video.srcObject = stream;
             video.play();
@@ -49,6 +52,31 @@
         .catch(function (err) {
             console.log("An error occurred! " + err);
         });
+
+        frontButton.disabled = true;
+        backButton.disabled = true;
+    }
+    backButton.onclick = function() {
+        front = front;
+        navigator.mediaDevices.getUserMedia(constraints)
+        .then(function (stream) {
+            video.srcObject = stream;
+            video.play();
+            main();
+        })
+        .catch(function (err) {
+            console.log("An error occurred! " + err);
+        });
+
+        frontButton.disabled = true;
+        backButton.disabled = true;
+    }
+    let markerId, markerCorner, rvec, tvec, copyCorners;
+    var front = false;
+
+    function opencvReady() {
+        document.getElementById('ready').innerText = 'OpenCV is ready';
+    }
 
     loadTextResource('utils.js', function (err, obj) {
         if (err) {
