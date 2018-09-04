@@ -19,16 +19,19 @@
 <body>
     <p id="ready">Opencv Loading...</p>
     <div>
-        <button id="camera" style="display: inline-block" disabled>Capture Camera</button>
-        <button id="runDemo" style="display: inline-block" disabled>Run Demo</button>
+        <button id="front-button" style="display: inline-block" disabled>Front Camera</button>
+        <button id="back-button" style="display: inline-block" disabled>Back Camera</button>
+        <button id="demo-button" style="display: inline-block" disabled>Run Demo</button>
     </div>
     <video id="video" width="300" height="300"></video>
     <canvas id="aruco" width="300" height "300"></canvas>
 </body>
 <script>
     var video = document.getElementById('video');
+    var frontButton = document.getElementById('front-button');
+    var backButton = document.getElementById('back-button');
+    var demoButton = document.getElementById('demo-button')
     video.style.display = "none";
-    var cubeMaterial;
 
     render = function (video) {
 
@@ -56,15 +59,15 @@
         );
 
         var videoMaterial = new THREE.MeshBasicMaterial({ map: texture });
-        cubeMaterial = [
-            new THREE.MeshBasicMaterial({ color: 0xff0000, transparent:true, opacity: 0 }),
-            new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent:true, opacity: 0 }),
-            new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent:true, opacity: 0 }),
-            new THREE.MeshBasicMaterial({ color: 0xffff00, transparent:true, opacity: 0 }),
-            new THREE.MeshBasicMaterial({ color: 0xff00ff, transparent:true, opacity: 0 }),
-            new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent:true, opacity: 0 })
+        var cubeMaterial = [
+            new THREE.MeshBasicMaterial({ color: 0xff0000, transparent: true, opacity: 0 }),
+            new THREE.MeshBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0 }),
+            new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: 0 }),
+            new THREE.MeshBasicMaterial({ color: 0xffff00, transparent: true, opacity: 0 }),
+            new THREE.MeshBasicMaterial({ color: 0xff00ff, transparent: true, opacity: 0 }),
+            new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0 })
         ]
-        
+
         var videoThreeJs = new THREE.Mesh(videoGeometry, videoMaterial);
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
         scene.add(videoThreeJs);
@@ -72,49 +75,51 @@
 
         camera.position.z = 5;
 
-        /*var animate = function () {
-
-            requestAnimationFrame(animate);
-            // update cube vertices
-            for (var i = 0; i < cubeGeometry.vertices.length; i+2) {
-                cubeGeometry.vertices[i].x = markerCorners.get(0).data32F[i];
-                cubeGeometry.vertices[i].y = markerCorners.get(0).data32F[i+1];
-            }
-            cubeGeometry.verticesNeedUpdate = true;
-            renderer.render(scene, camera);
-        };*/
-
         // Apply aruco coordinates to cube vertices
         runAruco(scene, camera, renderer, cubeGeometry, cubeMaterial);
-
-        //animate();
     }
 
-    let cameraButton = document.getElementById('camera');
-    let demoButton = document.getElementById('runDemo');
-    cameraButton.onclick = function () {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    frontButton.onclick = function () {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
             .then(function (stream) {
                 video.srcObject = stream;
                 video.play();
+                demoButton.disabled = false;
             })
             .catch(function (err) {
                 console.log("An error occurred! " + err);
             });
 
-        demoButton.disabled = false;
+        frontButton.disabled = true;
+        backButton.disabled = true;
+    }
+    backButton.onclick = function () {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+            .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+                demoButton.disabled = false;
+            })
+            .catch(function (err) {
+                console.log("An error occurred! " + err);
+            });
+
+        frontButton.disabled = true;
+        backButton.disabled = true;
     }
 
     demoButton.onclick = function () {
+        demoButton.disabled = true;
         render(video);
     }
 
-    const checkOpencv = setInterval(() => {
+    var checkOpencv = setInterval(function () {
         if (cv.usingWasm) {
             var script = document.createElement('script');
             script.src = "aruco-video.js";
             document.body.appendChild(script);
-            cameraButton.disabled = false;
+            frontButton.disabled = false;
+            backButton.disabled = false;
             document.getElementById('ready').innerText = 'OpenCV is ready';
             clearInterval(checkOpencv);
         }

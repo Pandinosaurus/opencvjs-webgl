@@ -37,32 +37,30 @@
     let video = document.getElementById('videoInput');
     let frontButton = document.getElementById('front-button');
     let backButton = document.getElementById('back-button');
-    frontButton.onclick = function() {
+    frontButton.onclick = function () {
         navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
-        .then(function (stream) {
-            video.srcObject = stream;
-            //video.play();
-            main();
-            button.disabled = false;
-        })
-        .catch(function (err) {
-            console.log("An error occurred! " + err);
-        });
+            .then(function (stream) {
+                video.srcObject = stream;
+                main();
+                button.disabled = false;
+            })
+            .catch(function (err) {
+                console.log("An error occurred! " + err);
+            });
 
         frontButton.disabled = true;
         backButton.disabled = true;
     }
-    backButton.onclick = function() {
+    backButton.onclick = function () {
         navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
-        .then(function (stream) {
-            video.srcObject = stream;
-            //video.play();
-            main();
-            button.disabled = false;
-        })
-        .catch(function (err) {
-            console.log("An error occurred! " + err);
-        });
+            .then(function (stream) {
+                video.srcObject = stream;
+                main();
+                button.disabled = false;
+            })
+            .catch(function (err) {
+                console.log("An error occurred! " + err);
+            });
 
         frontButton.disabled = true;
         backButton.disabled = true;
@@ -100,7 +98,7 @@
         button.disabled = true;
     }
 
-    const checkOpencv =  setInterval(() => {
+    const checkOpencv = setInterval(() => {
         if (cv.usingWasm) {
             frontButton.disabled = false;
             backButton.disabled = false;
