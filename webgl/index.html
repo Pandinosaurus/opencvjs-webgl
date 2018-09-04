@@ -41,6 +41,7 @@
         navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
             .then(function (stream) {
                 video.srcObject = stream;
+                video.play();
                 main();
                 button.disabled = false;
             })
@@ -55,6 +56,7 @@
         navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
             .then(function (stream) {
                 video.srcObject = stream;
+                video.play();
                 main();
                 button.disabled = false;
             })
