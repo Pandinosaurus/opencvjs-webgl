@@ -62,7 +62,7 @@ var runDemo = function() {
                 rvec = 1;
             }
             
-            cv.imshow('arucoCanvasOutput', dst);
+            //cv.imshow('arucoCanvasOutput', dst);
             
             // schedule the next one.
             let delay = 1000/FPS - (Date.now() - begin);
