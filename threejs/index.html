@@ -14,22 +14,38 @@
             margin: 0;
         }
 
+        section {
+            margin: 100px auto;
+        }
+
         section div:first-child {
             margin: auto;
-            padding-top: 50px;
             width: 80vw;
+        }
+
+        .intro h1 {
+            text-align: center;
         }
 
         .intro img {
             display: block;
             margin: auto;
         }
+
+        .arDemo .arDemoInnerFirst {
+            margin-bottom: 50px;
+        }
+
+        #aruco {
+            display: none;
+        }
     </style>
 </head>
 
 <body>
     <section class="intro">
-        <div ma>
+        <div>
+            <h1>Web Augment Reality</h1>
             <p>
                 In order to Run this demo properly you need to use an Aruco marker. In particular, you need to use this marker, since the
                 tracker will not recognize other aruco markers:
@@ -48,21 +64,24 @@
                 Note:
             </p>
             <p>
-                OpenCV.js is compiled into Web Assembly, which is a binary format understood by modern browsers (Make sure your browser supports Web Assembly). 
-                This allows for the utilization of the OpenCV library within the browser. No server needed! It all runs within the browser on the front-end.
+                OpenCV.js is compiled into Web Assembly, which is a binary format understood by modern browsers (Make sure your browser supports
+                Web Assembly). This allows for the utilization of the OpenCV library within the browser. No server needed!
+                It all runs within the browser on the front-end.
             </p>
         </div>
     </section>
     <section class="arDemo">
         <div>
             <p id="ready">Opencv Loading...</p>
-            <div>
+            <div class="arDemoInnerFirst">
                 <button id="front-button" style="display: inline-block" disabled>Front Camera</button>
                 <button id="back-button" style="display: inline-block" disabled>Back Camera</button>
                 <button id="demo-button" style="display: inline-block" disabled>Run Demo</button>
             </div>
-            <video id="video" width="300" height="300"></video>
-            <canvas id="aruco" width="300" height "300"></canvas>
+            <div class="arDemoInnerSecond">
+                <video id="video" width="300" height="300"></video>
+                <canvas id="aruco" width="300" height "300"></canvas>
+            </div>
         </div>
     </section>
 </body>
@@ -86,7 +105,7 @@
             300,
             300
         );
-        document.body.appendChild(renderer.domElement);
+        document.getElementsByClassName('arDemoInnerSecond')[0].appendChild(renderer.domElement);
 
         var videoGeometry = new THREE.BoxGeometry(7, 2.75, 4);
         var cubeGeometry = new THREE.BoxGeometry(2, 1, 5);
