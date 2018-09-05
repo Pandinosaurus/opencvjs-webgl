@@ -13,18 +13,58 @@
         body {
             margin: 0;
         }
+
+        section div:first-child {
+            margin: auto;
+            padding-top: 50px;
+            width: 80vw;
+        }
+
+        .intro img {
+            display: block;
+            margin: auto;
+        }
     </style>
 </head>
 
 <body>
-    <p id="ready">Opencv Loading...</p>
-    <div>
-        <button id="front-button" style="display: inline-block" disabled>Front Camera</button>
-        <button id="back-button" style="display: inline-block" disabled>Back Camera</button>
-        <button id="demo-button" style="display: inline-block" disabled>Run Demo</button>
-    </div>
-    <video id="video" width="300" height="300"></video>
-    <canvas id="aruco" width="300" height "300"></canvas>
+    <section class="intro">
+        <div ma>
+            <p>
+                In order to Run this demo properly you need to use an Aruco marker. In particular, you need to use this marker, since the
+                tracker will not recognize other aruco markers:
+            </p>
+            <img src="marker.jpg" alt="">
+            <p>
+                Once you have the Aruco marker ready, you need to wait to make sure that OpenCV.js is done loading in the browser. Once it's
+                done loading you will notice two buttons that have become enabled (front camera | back camera). If on a mobile
+                device, select the back camera for a more ease of use.
+            </p>
+            <p>
+                Once the camera is enabled, press the 'Run Demo' button and than point the camera to the Aruco marker. You should see a multi-coloured
+                cube being projected onto the Aruco marker.
+            </p>
+            <p>
+                Note:
+            </p>
+            <p>
+                OpenCV.js is compiled into Web Assembly, which is a binary format understood by modern browsers (Make sure your browser supports Web Assembly). 
+                This allows for the utilization of the OpenCV library within the browser. No server needed! It all runs within the browser on the front-end.
+            </p>
+        </div>
+    </section>
+    <section class="arDemo">
+        <div>
+            <p id="ready">Opencv Loading...</p>
+            <div>
+                <button id="front-button" style="display: inline-block" disabled>Front Camera</button>
+                <button id="back-button" style="display: inline-block" disabled>Back Camera</button>
+                <button id="demo-button" style="display: inline-block" disabled>Run Demo</button>
+            </div>
+            <video id="video" width="300" height="300"></video>
+            <canvas id="aruco" width="300" height "300"></canvas>
+        </div>
+    </section>
 </body>
 <script>
     var video = document.getElementById('video');
