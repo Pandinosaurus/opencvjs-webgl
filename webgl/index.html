@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="ready">Opencv Loading...</p>
+    <button id="front-button" disabled>Front Camera</button>
+    <button id="back-button" disabled>Back Camera</button>
+    <button id="runDemo" style="display: block" disabled>Run Demo</button>
+    <div>
+        <div style="display: inline-block; text-align: center; display: none;">
+            <video id="videoInput" width="320" height="240"></video>
+            <p>Video Capture</p>
+        </div>
+        <div style="display: inline-block; text-align: center; display: none;">
+            <canvas id="arucoCanvasOutput" width="320" height="240"></canvas>
+            <p>OpenCV</p>
+        </div>
+        <div style="display: inline-block; text-align: center">
+            <canvas id="webgl-draw" width="320" height="240"></canvas>
+            <p>Opencv + WebGL</p>
+        </div>
+
+    </div>
+</body>
+<script src="util.js"></script>
+<script async src="opencv.js"></script>
+<script src="gl-matrix.js"></script>
+<script src="webgl-video-cube.js"></script>
+<script>
+    let video = document.getElementById('videoInput');
+    let frontButton = document.getElementById('front-button');
+    let backButton = document.getElementById('back-button');
+    frontButton.onclick = function () {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+            .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+                main();
+                button.disabled = false;
+            })
+            .catch(function (err) {
+                console.log("An error occurred! " + err);
+            });
+
+        frontButton.disabled = true;
+        backButton.disabled = true;
+    }
+    backButton.onclick = function () {
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+            .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+                main();
+                button.disabled = false;
+            })
+            .catch(function (err) {
+                console.log("An error occurred! " + err);
+            });
+
+        frontButton.disabled = true;
+        backButton.disabled = true;
+    }
+    let markerId, markerCorner, rvec, tvec, copyCorners;
+    var front = false;
+
+    function opencvReady() {
+        document.getElementById('ready').innerText = 'OpenCV is ready';
+    }
+
+    loadTextResource('utils.js', function (err, obj) {
+        if (err) {
+            console.error(err);
+        } else {
+            var script = document.createElement('script');
+            script.append(obj);
+            document.body.appendChild(script);
+
+            loadTextResource('aruco-video.js', function (err, obj) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    var script = document.createElement('script');
+                    script.append(obj);
+                    document.body.appendChild(script);
+                }
+            });
+        }
+    });
+
+    let button = document.getElementById('runDemo');
+    button.onclick = function () {
+        runDemo();
+        button.disabled = true;
+    }
+
+    const checkOpencv = setInterval(() => {
+        if (cv.usingWasm) {
+            frontButton.disabled = false;
+            backButton.disabled = false;
+            opencvReady();
+            clearInterval(checkOpencv);
+        }
+    }, 500);
+</script>
+
+</html>
